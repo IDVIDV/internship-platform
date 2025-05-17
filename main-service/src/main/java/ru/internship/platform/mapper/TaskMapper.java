@@ -21,7 +21,7 @@ public interface TaskMapper {
     List<TaskItem> toTaskItemList(List<Task> taskList);
 
     @Mapping(target = "lesson",
-            expression = "java(new ds.dsinternshipcontrolsystem.entity." +
+            expression = "java(new ru.internship.platform.entity." +
                     "Lesson(addTask.getLessonId(), null, null, null, null))")
     Task toTask(AddTask addTask);
 }

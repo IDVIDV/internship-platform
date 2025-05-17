@@ -55,7 +55,7 @@ services:
     container_name: ds-internship-control-system
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: main-service/Dockerfile
     restart: always
     ports:
       - "8888:8080"

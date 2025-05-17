@@ -7,15 +7,25 @@
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.3.12.RELEASE</version>
     </parent>
-    <groupId>ds</groupId>
-    <artifactId>ds-internship-control-system</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>ds-internship-control-system</name>
-    <description>ds-internship-control-system</description>
+
+    <groupId>ru</groupId>
+    <artifactId>internship-system</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>internship-system</name>
+    <description>internship-system</description>
+
+    <modules>
+        <module>main-service</module>
+        <module>gitlab-service</module>
+    </modules>
+
+
     <properties>
         <java.version>1.8</java.version>
         <org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
     </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>

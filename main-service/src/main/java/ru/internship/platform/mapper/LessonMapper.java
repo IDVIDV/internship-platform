@@ -21,7 +21,7 @@ public interface LessonMapper {
     List<LessonItem> toLessonItemList(List<Lesson> lessonList);
 
     @Mapping(target = "internship",
-            expression = "java(new ds.dsinternshipcontrolsystem.entity." +
+            expression = "java(new ru.internship.platform.entity." +
                     "Internship(addLesson.getInternshipId(), null, null, null, null, null, null, null))")
     Lesson toLesson(AddLesson addLesson);
 }
