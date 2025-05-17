@@ -28,7 +28,7 @@ services:
     healthcheck:
       test: curl http://localhost:9876/-/health || exit 1
       interval: 1m
-      start_period: 4m
+      start_period: 10m
     environment:
       GITLAB_OMNIBUS_CONFIG: |
         external_url "http://localhost:9876"
