@@ -1,4 +1,4 @@
-name: "ds-internship-control-system"
+name: "internship-system"
 
 services:
   db:
@@ -42,7 +42,7 @@ services:
       - '${HOST_GITLAB_LOGS_DIR}:${GITLAB_LOGS_DIR}'
       - '${HOST_GITLAB_DATA_DIR}:${GITLAB_DATA_DIR}'
     shm_size: '256m'
-#
+
 #  gitlab-runner:
 #    image: gitlab/gitlab-runner:alpine
 #    container_name: gitlab-runner
@@ -50,9 +50,9 @@ services:
 #      - './data/gitlab/etc/gitlab-runner:/etc/gitlab-runner:z'
 #      - '/var/run/docker.sock:/var/run/docker.sock'
 
-  app:
-    image: ds-internship-control-system
-    container_name: ds-internship-control-system
+  main-service:
+    image: main-service
+    container_name: main-service
     build:
       context: .
       dockerfile: main-service/Dockerfile

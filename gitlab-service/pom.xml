@@ -17,5 +17,4 @@
         <java.version>1.8</java.version>
         <org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
     </properties>
-
 </project>
