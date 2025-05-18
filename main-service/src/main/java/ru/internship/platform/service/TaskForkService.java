@@ -9,6 +9,7 @@ import ru.internship.platform.entity.Task;
 import ru.internship.platform.entity.TaskFork;
 import ru.internship.platform.entity.User;
 import ru.internship.platform.entity.status.UserInternshipStatus;
+import ru.internship.platform.grpc.GitlabServiceGrpcClient;
 import ru.internship.platform.mapper.TaskForkMapper;
 import ru.internship.platform.repository.TaskForkRepository;
 import ru.internship.platform.repository.UserInternshipRepository;
@@ -26,7 +27,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Slf4j
 public class TaskForkService {
-    private final GitlabService gitLabService;
+    private final GitlabServiceGrpcClient gitlabServiceGrpcClient;
     private final TaskForkRepository taskForkRepository;
     private final UserInternshipRepository userInternshipRepository;
     private final TaskForkMapper taskForkMapper;
@@ -81,13 +82,7 @@ public class TaskForkService {
 
     public void createForks(List<User> users, List<Task> tasks) {
         try {
-            List<TaskFork> taskForks = new ArrayList<>();
-
-            for (User user : users) {
-                taskForks.addAll(gitLabService.createForks(tasks, user));
-            }
-
-            taskForkRepository.saveAll(taskForks);
+            gitlabServiceGrpcClient.createForks(tasks, users);
         } catch (Exception e) {
             log.error("Error happened during creating forks.", e);
             messageService.noticeAllAdminsOnForkFail(users, tasks, e.getMessage());

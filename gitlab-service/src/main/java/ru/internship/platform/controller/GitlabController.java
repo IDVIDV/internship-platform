@@ -1,7 +1,5 @@
 package ru.internship.platform.controller;
 
-import ru.internship.platform.service.GitlabService;
-import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import org.gitlab4j.api.webhook.PushEvent;
 import org.springframework.beans.factory.annotation.Value;
@@ -9,10 +7,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
+import ru.internship.platform.service.GitlabService;
 
 @RestController
 @RequiredArgsConstructor
-@Api(tags = {"Gitlab Controller"}, description = "Обрабатывает запросы push события, приходящие с Gitlab")
 public class GitlabController {
     private final GitlabService gitlabService;
 

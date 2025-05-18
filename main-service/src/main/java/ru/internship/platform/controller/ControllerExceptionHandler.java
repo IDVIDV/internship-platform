@@ -1,14 +1,7 @@
 package ru.internship.platform.controller;
 
-import ru.internship.platform.exception.UnauthorizedException;
-import ru.internship.platform.exception.UserAlreadyRegisteredException;
-import ru.internship.platform.exception.WrongInternshipStatusException;
-import ru.internship.platform.exception.UserAlreadyJoinedInternshipException;
-import ru.internship.platform.exception.UserAlreadyLeftInternshipException;
-import ru.internship.platform.exception.ForkFailedException;
-import ru.internship.platform.exception.InternshipRegistryClosedException;
+import ru.internship.platform.exception.*;
 import lombok.extern.slf4j.Slf4j;
-import org.gitlab4j.api.GitLabApiException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -95,10 +88,10 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
         return e.getMessage();
     }
 
-    @ExceptionHandler(GitLabApiException.class)
+    @ExceptionHandler(GitlabServiceException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public String handleGitlabApiException(GitLabApiException e) {
-        log.error("Unhandled GitlabApi exception caught", e);
+    public String handleGitlabApiException(GitlabServiceException e) {
+        log.error("Unhandled GitLabService exception caught", e);
         return e.getMessage();
     }
 }

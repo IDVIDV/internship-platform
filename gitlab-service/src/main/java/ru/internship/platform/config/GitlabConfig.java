@@ -9,15 +9,15 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class GitlabConfig {
-    @Value("${GITLAB_URL:http://localhost:9877}")
+    @Value("${GITLAB_URL:http://localhost:9876}")
     private String gitlabUrl;
-    @Value("${GITLAB_PASSWORD:ivakin_danya}")
+    @Value("${GITLAB_PASSWORD:secret1pass}")
     private String gitlabPassword;
     @Value("${GITLAB_USER:root}")
     private String gitlabUser;
     @Value("${GITLAB_PUSH_HOOK_URL:http://192.168.56.1:8080/gitlab/push-event}")
     private String pushEventUrl;
-    @Value("${GITLAB_PUSH_HOOK_SECRET_TOKEN:secret-token}")
+    @Value("${GITLAB_PUSH_HOOK_SECRET_TOKEN:super-secret-token}")
     private String pushEventSecretToken;
 
     @Bean

@@ -1,11 +1,5 @@
 package ru.internship.platform.service;
 
-import ru.internship.platform.repository.CommitRepository;
-import ru.internship.platform.entity.Commit;
-import ru.internship.platform.entity.Task;
-import ru.internship.platform.entity.TaskFork;
-import ru.internship.platform.entity.User;
-import ru.internship.platform.repository.TaskForkRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.gitlab4j.api.GitLabApi;
@@ -17,6 +11,14 @@ import org.gitlab4j.api.webhook.EventRepository;
 import org.gitlab4j.api.webhook.PushEvent;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import ru.internship.platform.entity.Commit;
+import ru.internship.platform.entity.Task;
+import ru.internship.platform.entity.TaskFork;
+import ru.internship.platform.entity.User;
+import ru.internship.platform.repository.CommitRepository;
+import ru.internship.platform.repository.TaskForkRepository;
+import ru.internship.platform.repository.TaskRepository;
+import ru.internship.platform.repository.UserRepository;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -26,7 +28,9 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 public class GitlabService {
+    private final UserRepository userRepository;
     private final CommitRepository commitRepository;
+    private final TaskRepository taskRepository;
     private final TaskForkRepository taskForkRepository;
     private final GitLabApi gitLabApi;
 
@@ -66,7 +70,19 @@ public class GitlabService {
         log.info("Push event handled: {}; saved commits: {}", pushEvent, commitsToSave);
     }
 
-    public List<TaskFork> createForks(List<Task> tasks, User user) throws GitLabApiException {
+    public void createForks(List<Integer> taskIds, Integer userId) throws GitLabApiException {
+        User user = userRepository.findById(userId).orElse(null);
+
+        if (user == null) {
+            throw new GitLabApiException("User not found by id " + userId);
+        }
+
+        List<Task> tasks = taskRepository.findAllById(taskIds);
+
+        if (tasks.isEmpty()) {
+            throw new GitLabApiException("No tasks given");
+        }
+
         org.gitlab4j.api.models.User gitlabUser = gitLabApi.getUserApi().getUser(user.getUsername());
 
         if (gitlabUser == null) {
@@ -84,8 +100,6 @@ public class GitlabService {
         }
 
         log.info("Forks created for user {} of tasks {}", user, tasks);
-
-        return taskForks;
     }
 
     public org.gitlab4j.api.models.User registerUser(User user) throws GitLabApiException {

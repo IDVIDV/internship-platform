@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package ru.internship.platform.proto;
+
+message CreateTaskForksRequest {
+  repeated int32 userIds = 1;
+  repeated int32 taskIds = 2;
+}
+
+message CreateTaskForksResponse {
+  string exceptionMessage = 1;
+}
+
+service GitlabService {
+  rpc CreateTaskForks(CreateTaskForksRequest) returns (CreateTaskForksResponse);
+}
